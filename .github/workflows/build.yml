@@ -31,16 +31,16 @@ jobs:
           docker run --rm texlive-$SCHEME pdflatex --version
       - name: Deploy
         run: |
-          DOCKER_TAG="xucheng/texlive-$SCHEME"
-          GH_TAG="docker.pkg.github.com/xu-cheng/latex-docker/texlive-$SCHEME"
+          DOCKER_TAG="jefftian/texlive-$SCHEME"
+          GH_TAG="docker.pkg.github.com/jeff-tian/latex-docker/texlive-$SCHEME"
           VERSION="$(date "+%Y%m%d")"
           docker tag texlive-$SCHEME ${DOCKER_TAG}:$VERSION
           docker tag texlive-$SCHEME ${DOCKER_TAG}:latest
           docker tag texlive-$SCHEME ${GH_TAG}:$VERSION
           docker tag texlive-$SCHEME ${GH_TAG}:latest
           docker images $DOCKER_TAG
-          echo "$DOCKER_HUB_TOKEN" | docker login --password-stdin -u xucheng
-          echo "$GITHUB_TOKEN" | docker login --password-stdin -u xu-cheng docker.pkg.github.com
+          echo "$DOCKER_HUB_TOKEN" | docker login --password-stdin -u jefftian
+          echo "$GITHUB_TOKEN" | docker login --password-stdin -u jeff-tian docker.pkg.github.com
           docker push $DOCKER_TAG
           docker push $GH_TAG
         env:
