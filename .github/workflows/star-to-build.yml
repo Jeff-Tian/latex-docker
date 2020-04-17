@@ -1,0 +1,47 @@
+name: Build Docker Image When this project get stared
+on:
+  watch:
+    types: [started]
+jobs:
+  build:
+    if: "github.actor == github.event.repository.owner.login"
+    strategy:
+      matrix:
+        scheme: [small, full]
+    name: Build TeXLive [${{ matrix.scheme }}-scheme]
+    runs-on: ubuntu-latest
+    env:
+      SCHEME: ${{ matrix.scheme }}
+    steps:
+      - name: Set up Git repository
+        uses: actions/checkout@v1
+      - name: Enable Docker experimental features
+        run: |
+          jq '.experimental=true' /etc/docker/daemon.json > daemon.json
+          sudo mv daemon.json /etc/docker/daemon.json
+          sudo systemctl restart docker
+          docker version -f '{{.Server.Experimental}}'
+      - name: Build
+        run: |
+          docker build --squash -t texlive-$SCHEME --build-arg scheme=$SCHEME .
+      - name: Test
+        run: |
+          docker run --rm texlive-$SCHEME pdflatex --version
+      - name: Deploy
+        run: |
+          DOCKER_TAG="jefftian/texlive-$SCHEME"
+          GH_TAG="docker.pkg.github.com/jeff-tian/latex-docker/texlive-$SCHEME"
+          VERSION="$(date "+%Y%m%d")"
+          docker tag texlive-$SCHEME ${DOCKER_TAG}:$VERSION
+          docker tag texlive-$SCHEME ${DOCKER_TAG}:latest
+          docker tag texlive-$SCHEME ${GH_TAG}:$VERSION
+          docker tag texlive-$SCHEME ${GH_TAG}:latest
+          docker images $DOCKER_TAG
+          echo "$DOCKER_HUB_TOKEN" | docker login --password-stdin -u jefftian
+          echo "$GITHUB_TOKEN" | docker login --password-stdin -u jeff-tian docker.pkg.github.com
+          docker push $DOCKER_TAG
+          docker push $GH_TAG
+        env:
+          DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        if: github.ref == 'refs/heads/master'
