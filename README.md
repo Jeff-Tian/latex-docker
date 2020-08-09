@@ -18,6 +18,11 @@ The other day a latex project of mine failed because the image `xu-cheng/texlive
    new version of texlive released then you can star this project to trigger the latest texlive image's building.
  
 
+## See Also
+
+* [latex-action](https://github.com/xu-cheng/latex-action): GitHub action to compile LaTeX documents.
+* [texlive-action](https://github.com/xu-cheng/texlive-action): GitHub action to run arbitrary commands in a TeXLive environment.
+
 ## License
 
 MIT
