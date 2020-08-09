@@ -23,13 +23,16 @@ retry() {
   done
 }
 
-echo "==> Install system packages"
+echo "==> Install system packages... "
 apk --no-cache add \
   bash \
   ghostscript \
   gnupg \
   graphviz \
-  openjdk11-jre-headless \
+  # openjdk11-jre-headless \
+  openjdk11-jre \
+  fontconfig \
+  ttf-dejavu \
   perl \
   py-pygments \
   python2 \
