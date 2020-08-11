@@ -27,14 +27,16 @@ retry() {
 echo "==> Install system packages... "
 apk add openjdk11 --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community
 
+apk --update add fontconfig ttf-dejavu
+
 apk --no-cache add \
   bash \
   ghostscript \
   gnupg \
   graphviz \
   # openjdk11-jre-headless \
-  fontconfig \
-  ttf-dejavu \
+  # fontconfig \
+  # ttf-dejavu \
   perl \
   py-pygments \
   python2 \
