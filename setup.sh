@@ -30,7 +30,7 @@ apk --no-cache add \
   gnupg \
   graphviz \
   # openjdk11-jre-headless \
-  openjdk11-jre \
+  openjdk8-jre \
   fontconfig \
   ttf-dejavu \
   perl \
