@@ -34,9 +34,6 @@ apk --no-cache add \
   ghostscript \
   gnupg \
   graphviz \
-  # openjdk11-jre-headless \
-  # fontconfig \
-  # ttf-dejavu \
   perl \
   py-pygments \
   python2 \
