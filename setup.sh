@@ -23,14 +23,16 @@ retry() {
   done
 }
 
+
 echo "==> Install system packages... "
+apk add openjdk11 --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community
+
 apk --no-cache add \
   bash \
   ghostscript \
   gnupg \
   graphviz \
   # openjdk11-jre-headless \
-  openjdk8-jre \
   fontconfig \
   ttf-dejavu \
   perl \
