@@ -68,6 +68,8 @@ if [ "$scheme" != "full" ]; then
     texliveonfly
 fi
 
+tlmgr update --self --all --no-auto-install 
+
 echo "==> Clean up"
 rm -rf \
   /opt/texlive/texdir/install-tl \
