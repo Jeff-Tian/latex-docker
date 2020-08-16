@@ -55,6 +55,8 @@ mkdir -p /tmp/install-tl/installer
 tar --strip-components 1 -zxf /tmp/install-tl/install-tl-unx.tar.gz -C /tmp/install-tl/installer
 retry 3 /tmp/install-tl/installer/install-tl -scheme "$scheme" -profile=/texlive.profile
 
+tlmgr install xunicode
+
 # Install additional packages for non full scheme
 if [ "$scheme" != "full" ]; then
   tlmgr install \
