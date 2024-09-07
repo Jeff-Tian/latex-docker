@@ -1,4 +1,4 @@
-FROM alpine:latest
+FROM alpine:3.20.3
 ARG scheme=full
 
 ENV PATH="/opt/texlive/texdir/bin/x86_64-linuxmusl:${PATH}"
